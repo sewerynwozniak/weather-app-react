@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from 'react';
+import Header from './components/Header';
+import AddCity from './components/AddCity';
+import DisplayWeather from './components/DisplayWeather';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const App = () => {
+
+
+    const [cities, setCities] = useState([]);
+    const apiKey = '4c97ef52cb86a6fa1cff027ac4a37671';
+
+    const addCity = (newCity)=>{
+        setCities([...cities, newCity]);
+        
+    }
+
+    useEffect(() => {
+         loadCityFromLocalStore()
+
+    }, [cities])
+
+
+
+    const getData = async(city)=>{
+        console.log(city)
+        const res =await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
+        const data = await res.json();
+        console.log(data)
+    }
+
+
+    const displayData = ()=>{
+
+    }
+
+    const loadCityFromLocalStore =()=>{
+        cities.forEach(city=>getData(city))
+    }
+
+
+    return (
+        <div>
+            <Header />
+            <AddCity addCity={addCity}/>
+            <DisplayWeather />
+        </div>
+    )
 }
 
-export default App;
+export default App
