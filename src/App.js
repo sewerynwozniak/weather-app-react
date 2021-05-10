@@ -8,12 +8,16 @@ import DisplayWeather from './components/DisplayWeather';
 const App = () => {
 
 
-    const [cities, setCities] = useState([]);
-    const apiKey = '4c97ef52cb86a6fa1cff027ac4a37671';
+    const [cities, setCities] = useState(['Kraków']);
+    
+
 
     const addCity = (newCity)=>{
         setCities([...cities, newCity]);
-        
+
+        let cityId = localStorage.length;
+        localStorage.setItem(`city${cityId}`, newCity);
+     
     }
 
     useEffect(() => {
@@ -23,28 +27,31 @@ const App = () => {
 
 
 
-    const getData = async(city)=>{
-        console.log(city)
-        const res =await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
-        const data = await res.json();
-        console.log(data)
-    }
+ 
 
-
-    const displayData = ()=>{
-
-    }
 
     const loadCityFromLocalStore =()=>{
-        cities.forEach(city=>getData(city))
+        //cities.forEach(city=>getData(city))
     }
+
+   
+
+
+
+
+ 
+    const displayData = ()=>{
+        
+    }
+
+
 
 
     return (
         <div>
             <Header />
             <AddCity addCity={addCity}/>
-            <DisplayWeather />
+            <DisplayWeather displayWeather={cities}/>
         </div>
     )
 }
