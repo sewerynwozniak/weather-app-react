@@ -1,11 +1,18 @@
-
+import styled from 'styled-components'
 
 const Header = () => {
     return (
         <header>
-            <h1>Weather App</h1>
+            <SyledH1>Weather App</SyledH1>
         </header>
     )
 }
+
+
+const SyledH1 = styled.h1`
+    text-align: center;
+    color: #fff;
+
+`
 
 export default Header
