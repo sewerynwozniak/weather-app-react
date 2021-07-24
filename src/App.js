@@ -1,59 +1,51 @@
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import AddCity from './components/AddCity';
-import DisplayWeather from './components/DisplayWeather';
+import FetchWeather from './components/FetchWeather';
 
 
 
 const App = () => {
 
 
-    const [cities, setCities] = useState(['Kraków']);
-    
-
-
+    const [cities, setCities] = useState([]);
+  
+  
     const addCity = (newCity)=>{
-        setCities([...cities, newCity]);
-
-        let cityId = localStorage.length;
-        localStorage.setItem(`city${cityId}`, newCity);
-     
+         localStorage.setItem(newCity.toLowerCase(), '');
+         loadCityFromLocalStore()
     }
+
+
 
     useEffect(() => {
          loadCityFromLocalStore()
-
-    }, [cities])
-
+    }, [])
 
 
- 
 
-
-    const loadCityFromLocalStore =()=>{
-        //cities.forEach(city=>getData(city))
+    const loadCityFromLocalStore =()=>{      
+      setCities([...Object.keys(localStorage)])
     }
+
+
+
+    const deleteCity = (city)=>{
+        localStorage.removeItem(city.toLowerCase())
+        loadCityFromLocalStore()
+    }
+
 
    
-
-
-
-
- 
-    const displayData = ()=>{
-        
-    }
-
-
-
-
     return (
+        
         <div>
             <Header />
             <AddCity addCity={addCity}/>
-            <DisplayWeather displayWeather={cities}/>
+            <FetchWeather cities={cities} deleteCity={deleteCity} />
         </div>
     )
+    
 }
 
 export default App

@@ -5,9 +5,14 @@ const AddCity = ({addCity}) => {
 
     const [newCity, setNewCity] = useState('')
 
+    const normalizedCity =(city)=>{
+        return city.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+
     const onSubmit = (e)=>{
         e.preventDefault();
-        addCity(newCity);
+        addCity(normalizedCity(newCity));
         setNewCity('');
     }
 
