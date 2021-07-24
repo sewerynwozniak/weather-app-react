@@ -35,6 +35,10 @@ const App = () => {
         loadCityFromLocalStore()
     }
 
+    const incorrectCity = (city)=>{
+        localStorage.removeItem(city.toLowerCase())
+    }
+
 
    
     return (
@@ -42,7 +46,7 @@ const App = () => {
         <div>
             <Header />
             <AddCity addCity={addCity}/>
-            <FetchWeather cities={cities} deleteCity={deleteCity} />
+            <FetchWeather cities={cities} deleteCity={deleteCity} incorrectCity={incorrectCity}/>
         </div>
     )
     
