@@ -36,6 +36,10 @@ const SyledForm = styled.form`
     margin: 50px auto;
     text-align: center;
 
+    @media (max-width: 450px){
+        flex-direction: column;
+    }
+
 `
 
 const CityInput = styled.input`

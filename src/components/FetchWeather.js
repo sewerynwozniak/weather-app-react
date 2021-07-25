@@ -1,6 +1,7 @@
 import React from 'react';
 import SingleWeather from './SingleWeather';
 import {useState, useEffect} from 'react';
+import styled from 'styled-components'
 
 
 const FetchWeather = ({cities, deleteCity, incorrectCity}) => {
@@ -35,18 +36,28 @@ const FetchWeather = ({cities, deleteCity, incorrectCity}) => {
   
 
     return (
-        <>
-            {Object.values(fetchData).map(weatherData=>(            
-                 <ul>
+        <WeathersContainer>
+            {Object.values(fetchData).map(weatherData=>(                        
                      <SingleWeather       
-                     key={weatherData.id}                                          
+                        key={weatherData.id}                                          
                         weatherData={weatherData}
                         deleteCity={deleteCity}
                     /> 
-                  </ul>
+                  
             ))}
-        </>
+        </WeathersContainer>
     )
 }
+
+
+const WeathersContainer = styled.div`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+`
+
 
 export default FetchWeather
